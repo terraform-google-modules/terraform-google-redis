@@ -16,5 +16,5 @@
 
 output "bucket_name" {
   description = "The name of the bucket."
-  value       = module.redis.bucket_name
+  value       = module.mariadb.bucket_name
 }

@@ -1,6 +1,10 @@
 # Simple Example
 
+<<<<<<< HEAD
 This example illustrates how to use the `redis` module.
+=======
+This example illustrates how to use the `mariadb` module.
+>>>>>>> Initial commit
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
