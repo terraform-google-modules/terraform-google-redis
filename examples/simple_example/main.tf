@@ -18,7 +18,7 @@ provider "google" {
   version = "~> 2.0"
 }
 
-module "redis" {
+module "mariadb" {
   source = "../.."
 
   project_id  = var.project_id

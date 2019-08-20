@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # terraform-google-redis
+=======
+# terraform-google-mariadb
+>>>>>>> Initial commit
 
 This module was generated from [terraform-google-module-template](https://github.com/terraform-google-modules/terraform-google-module-template/), which by default generates a module that simply creates a GCS bucket. As the module develops, this README should be updated.
 
@@ -11,8 +15,13 @@ The resources/services/activations/deletions that this module will create/trigge
 Basic usage of this module is as follows:
 
 ```hcl
+<<<<<<< HEAD
 module "redis" {
   source  = "terraform-google-modules/redis/google"
+=======
+module "mariadb" {
+  source  = "terraform-google-modules/mariadb/google"
+>>>>>>> Initial commit
   version = "~> 0.1"
 
   project_id  = "<PROJECT ID>"
