@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,5 +15,11 @@
  */
 
 output "bucket_name" {
-  value = google_storage_bucket.main.name
+  description = "The name of the bucket."
+  value       = module.example.bucket_name
+}
+
+output "project_id" {
+  description = "The ID of the project in which resources are provisioned."
+  value       = var.project_id
 }

@@ -14,11 +14,19 @@
  * limitations under the License.
  */
 
-output "project_id" {
-  value = module.project.project_id
+terraform {
+  required_version = "~> 0.12.0"
 }
 
-output "sa_key" {
-  value     = google_service_account_key.int_test.private_key
-  sensitive = true
+resource "google_compute_health_check" "mariadb" {
+  project             = var.project_id
+  name                = var.health_check_name
+  timeout_sec         = 30
+  check_interval_sec  = 60
+  healthy_threshold   = 1
+  unhealthy_threshold = 4
+
+  tcp_health_check {
+    port = "3306"
+  }
 }
