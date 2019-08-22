@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
-terraform {
-  required_version = ">= 0.12"
+output "health_check_uri" {
+  description = "The URI of the health check."
+  value       = google_compute_health_check.mariadb.self_link
 }

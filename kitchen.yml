@@ -1,4 +1,4 @@
-# Copyright 2018 Google LLC
+# Copyright 2019 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,18 +26,18 @@ platforms:
   - name: default
 
 suites:
-  - name: simple_example
+  - name: mariadb
     driver:
-      root_module_directory: test/fixtures/simple_example/
+      root_module_directory: test/fixtures/mariadb/
     verifier:
       color: false
       systems:
-        - name: simple_example local
+        - name: mariadb local
           backend: local
           controls:
             - gcloud
             - gsutil
-        - name: simple_example gcp
+        - name: mariadb gcp
           backend: gcp
           controls:
             - gcp
