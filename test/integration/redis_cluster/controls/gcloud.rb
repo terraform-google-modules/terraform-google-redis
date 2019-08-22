@@ -20,4 +20,10 @@ control "gcloud" do
     its(:stderr) { should eq "" }
     its(:stdout) { should match "storage-api.googleapis.com" }
   end
+
+  describe command("gcloud --project=#{attribute("project_id")} compute instances list | grep RUNNING | wc -l | awk {'print $1'}") do
+    its(:exit_status) { should eq 0 }
+    its(:stderr) { should eq "" }
+    its(:stdout) { should match "4" }
+  end
 end

@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-output "project_id" {
-  value = module.project.project_id
-}
-
-output "sa_key" {
-  value     = google_service_account_key.int_test.private_key
-  sensitive = true
-}
+variable "project_id" { default = "" }
+variable "service_account" { default = "redis-server" }
+variable "bucket_name" { default = "" }
+variable "network_project" { default = "" }
+variable "network" { default = "default" }
+variable "subnetwork" { default = "default" }
+variable "client_ip_range" { default = "10.0.0.0/8" }
