@@ -14,12 +14,7 @@
  * limitations under the License.
  */
 
-output "bucket_name" {
-  description = "The name of the bucket."
-  value       = module.example.bucket_name
-}
-
-output "project_id" {
-  description = "The ID of the project in which resources are provisioned."
-  value       = var.project_id
+output "address" {
+  description = "The IP address."
+  value       = google_compute_address.main.address
 }

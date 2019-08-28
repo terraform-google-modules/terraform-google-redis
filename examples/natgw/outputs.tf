@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-output "bucket_name" {
-  description = "The name of the bucket."
-  value       = module.admin.bucket_name
+output "address" {
+  description = "The IP address."
+  value       = module.natgw.address
 }

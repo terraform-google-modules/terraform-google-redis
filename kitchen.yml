@@ -26,18 +26,13 @@ platforms:
   - name: default
 
 suites:
-  - name: mariadb
+  - name: natgw
     driver:
-      root_module_directory: test/fixtures/mariadb/
+      root_module_directory: test/fixtures/natgw/
     verifier:
       color: false
       systems:
-        - name: mariadb local
+        - name: natgw local
           backend: local
           controls:
             - gcloud
-            - gsutil
-        - name: mariadb gcp
-          backend: gcp
-          controls:
-            - gcp

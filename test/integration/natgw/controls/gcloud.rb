@@ -12,10 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-control "gcp" do
-  title "GCP Resources"
+control "gcloud" do
+  title "gcloud"
 
-  describe google_storage_bucket(name: attribute("bucket_name")) do
-    it { should exist }
+  describe command("gcloud --project=#{attribute("project_id")} compute instances list | grep RUNNING | wc -l | awk {'print $1'}") do
+    its(:exit_status) { should eq 0 }
+    its(:stderr) { should eq "" }
+    its(:stdout) { should match "2" }
   end
 end

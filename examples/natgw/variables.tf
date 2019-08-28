@@ -19,8 +19,33 @@ variable "project_id" {
   type        = string
 }
 
+variable "region" {
+  type = string
+}
+
+variable "zone" {
+  type = string
+}
+
+variable "subnetwork" {
+  type = string
+}
+
+variable "template_version" {
+  description = "A version identifier included in instance template names."
+  type        = string
+}
+
+variable "vm_image" { type = string }
 variable "network_project" { type = string }
 variable "network" { type = string }
 variable "service_account" { type = string }
+variable "instance_type" { type = string }
 variable "client_ip_range" { type = string }
+variable "disk_size_gb" { type = number }
+variable "health_check_name" { type = string }
+variable "disk_type" { type = string }
 variable "fw_rule_name" { type = string }
+variable "group_name" { type = string }
+variable "address_name" { type = string }
+variable "template_name" { type = string }

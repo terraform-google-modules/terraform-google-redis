@@ -1,43 +1,37 @@
-# Terraform Redis Module for GCP
+# terraform-google-natgw
 
-This module was generated from [terraform-google-module-template](https://github.com/terraform-google-modules/terraform-google-module-template/), which by default generates a module that simply creates a GCS bucket. As the module develops, this README should be updated.
-
-The resources/services/activations/deletions that this module will create/trigger are:
-
-- Create a GCS bucket with the provided name
+The modules contained in this repository create a nat gateway with configurable client ip
 
 ## Usage
 
 Basic usage of this module is as follows:
 
 ```hcl
-module "redis" {
-  source  = "terraform-google-modules/redis/google"
-  version = "~> 0.1"
+module "example" {
+  source = "../../../examples/natgw"
 
-  project_id  = "<PROJECT ID>"
-  bucket_name = "gcs-test-bucket"
+  project_id        = "myproject"
+  region            = "us-east1"
+  zone              = "us-east1-b"
+  network_project   = "default"
+  network           = "default"
+  subnetwork        = "default"
+  client_ip_range   = "10.0.0.0/8"
+  template_name     = "nat-tpl"
+  health_check_name = "nat-gw"
+  fw_rule_name      = "nat-fw"
+  group_name        = "nat-mig"
+  address_name      = "nat-addr"
+  service_account   = "nat-gw"
+  instance_type     = "g1-small"
+  vm_image          = "debian-cloud/debian-9"
+  disk_type         = "pd-standard"
+  disk_size_gb      = 32
+  template_version  = "v1"
 }
 ```
 
-Functional examples are included in the
-[examples](./examples/) directory.
-
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| bucket\_name | The name of the bucket to create | string | n/a | yes |
-| project\_id | The project ID to deploy to | string | n/a | yes |
-
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| bucket\_name |  |
-
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+Functional example is included in the [examples](./examples/) directory.
 
 ## Requirements
 
@@ -49,27 +43,6 @@ The following dependencies must be available:
 
 - [Terraform][terraform] v0.12
 - [Terraform Provider for GCP][terraform-provider-gcp] plugin v2.0
-
-### Service Account
-
-A service account with the following roles must be used to provision
-the resources of this module:
-
-- Storage Admin: `roles/storage.admin`
-
-The [Project Factory module][project-factory-module] and the
-[IAM module][iam-module] may be used in combination to provision a
-service account with the necessary roles applied.
-
-### APIs
-
-A project with the following APIs enabled must be used to host the
-resources of this module:
-
-- Google Cloud Storage JSON API: `storage-api.googleapis.com`
-
-The [Project Factory module][project-factory-module] can be used to
-provision a project with the necessary APIs enabled.
 
 ## Contributing
 

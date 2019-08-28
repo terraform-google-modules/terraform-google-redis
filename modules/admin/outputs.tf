@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-output "bucket_name" {
-  description = "The name of the bucket."
-  value       = google_storage_bucket.config.name
+output "fw_rule_name" {
+  description = "The name of the firewall rule."
+  value       = google_compute_firewall.default.name
+}
+
+output "service_account_email" {
+  description = "The email of the service account."
+  value       = google_service_account.default.email
 }

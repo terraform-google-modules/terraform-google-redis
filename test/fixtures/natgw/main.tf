@@ -23,10 +23,7 @@ resource "random_id" "id" {
 }
 
 locals {
-  id     = "cft-mariadb-${random_id.id.hex}"
-  region = "us-east1"
-  zone   = "us-east1-b"
-  subnet = google_compute_subnetwork.test.name
+  id = "cft-natgw-${random_id.id.hex}"
 }
 
 resource "google_compute_network" "test" {
@@ -37,7 +34,7 @@ resource "google_compute_network" "test" {
 
 resource "google_compute_subnetwork" "test" {
   project                  = var.project_id
-  region                   = local.region
+  region                   = "us-east1"
   network                  = google_compute_network.test.self_link
   name                     = local.id
   ip_cidr_range            = "10.0.0.0/24"
@@ -47,9 +44,9 @@ resource "google_compute_subnetwork" "test" {
 # NAT instance for test environment
 resource "google_compute_instance" "nat" {
   project      = var.project_id
-  name         = "nat"
+  name         = "natgw"
   machine_type = "f1-micro"
-  zone         = local.zone
+  zone         = "us-east1-b"
 
   boot_disk {
     initialize_params {
@@ -59,7 +56,7 @@ resource "google_compute_instance" "nat" {
 
   network_interface {
     subnetwork_project = var.project_id
-    subnetwork         = local.subnet
+    subnetwork         = google_compute_subnetwork.test.name
     access_config {}
   }
 
@@ -83,52 +80,29 @@ resource "google_compute_route" "nat" {
   priority          = 100
 }
 
+/* It's necessary to pass references here rather than just names
+ * otherwise terraform will not include relationships in the DAG.
+ * This causes CI to fail with "resource is not ready" error.
+ */
 module "example" {
-  source = "../../../examples/mariadb"
+  source = "../../../examples/natgw"
 
-  project_id   = var.project_id
-  bucket_name  = local.id
-  cluster_name = "cluster"
-  create_time  = timestamp()
-  databases    = "db"
-  region = [
-    local.region,
-    local.region,
-    local.region,
-    local.region,
-  ]
-  zone = [
-    local.zone,
-    local.zone,
-    local.zone,
-    local.zone,
-  ]
-  subnetwork = [
-    local.subnet,
-    local.subnet,
-    local.subnet,
-    local.subnet,
-  ]
-
-  /* It's necessary to pass a reference here
-   * otherwise terraform will not wait for the network to become ready
-   * and CI will fail with "resource is not ready"
-   */
-  network            = google_compute_network.test.name
-  network_project    = var.project_id
-  garb_region        = local.region
-  garb_zone          = local.zone
-  garb_subnetwork    = google_compute_subnetwork.test.name
-  garb_instance_type = "f1-micro"
-  health_check_name  = local.id
-  service_account    = local.id
-  instance_type      = "n1-standard-2"
-  disk_size_gb       = 32
-  disk_type          = "pd-standard"
-  client_ip_range    = "0.0.0.0/0"
-  pass               = local.id
-  statspass          = local.id
-  replpass           = local.id
-  instance_count     = 4
-  template_version   = "v1"
+  project_id        = var.project_id
+  region            = "us-east1"
+  zone              = "us-east1-b"
+  subnetwork        = google_compute_subnetwork.test.name
+  network           = google_compute_network.test.name
+  network_project   = var.project_id
+  health_check_name = local.id
+  service_account   = local.id
+  instance_type     = "n1-standard-8"
+  disk_size_gb      = 32
+  disk_type         = "pd-standard"
+  client_ip_range   = "10.1.0.0/24"
+  template_version  = "v1"
+  fw_rule_name      = local.id
+  group_name        = local.id
+  address_name      = local.id
+  template_name     = local.id
+  vm_image          = "debian-cloud/debian-9"
 }

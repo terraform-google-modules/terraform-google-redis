@@ -14,19 +14,7 @@
  * limitations under the License.
  */
 
-terraform {
-  required_version = "~> 0.12.0"
-}
-
-resource "google_compute_health_check" "mariadb" {
-  project             = var.project_id
-  name                = var.health_check_name
-  timeout_sec         = 15
-  check_interval_sec  = 30
-  healthy_threshold   = 1
-  unhealthy_threshold = 3
-
-  tcp_health_check {
-    port = 443
-  }
+output "project_id" {
+  description = "The ID of the project in which resources are provisioned."
+  value       = var.project_id
 }

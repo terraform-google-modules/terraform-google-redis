@@ -19,18 +19,18 @@ variable "project_id" {
   type        = string
 }
 
-variable "bucket_name" {
-  description = "The name of the bucket to create."
+variable "group_name" {
+  description = "The name of the instance group manager."
   type        = string
 }
 
-variable "cluster_name" {
-  description = "The name of the cluster, used in resource naming."
+variable "template_name" {
+  description = "The name of the instance template."
   type        = string
 }
 
-variable "create_time" {
-  description = "Creation time formatted as 2018-01-02T23:12:01Z used to allow cluster bootstrap."
+variable "address_name" {
+  description = "The name of the static IP address."
   type        = string
 }
 
@@ -54,26 +54,6 @@ variable "client_ip_range" {
   type        = string
 }
 
-variable "pass" {
-  description = "Password for mariadb root user."
-  type        = string
-}
-
-variable "replpass" {
-  description = "Password for mariadb repl user."
-  type        = string
-}
-
-variable "statspass" {
-  description = "Password for mariadb stats user."
-  type        = string
-}
-
-variable "instance_count" {
-  description = "Number of instances to create."
-  type        = number
-}
-
 variable "disk_size_gb" {
   description = "Size of boot disk."
   type        = number
@@ -89,11 +69,6 @@ variable "health_check_uri" {
   type        = string
 }
 
-variable "databases" {
-  description = "Space separated list of database names to be created."
-  type        = string
-}
-
 variable "vm_image" {
   description = "VM Image to use in instance templates."
   type        = string
@@ -104,40 +79,18 @@ variable "template_version" {
   type        = string
 }
 
-variable "garb_instance_type" {
-  description = "Instance type to be used for garb instance."
-  type        = string
-}
-
-variable "garb_zone" {
-  description = "Zone to be used for garb instance."
-  type        = string
-}
-
-variable "garb_region" {
-  description = "Region to be used for garb instance."
-  type        = string
-}
-
-variable "garb_subnetwork" {
-  description = "Subnetwork to be used for garb instance."
-  type        = string
-}
-
-
-# Map Variables with one record per instance
 variable "region" {
-  description = "List of instance regions."
-  type        = list(string)
+  description = "Instance region."
+  type        = string
 }
 
 variable "zone" {
-  description = "List of instance zones."
-  type        = list(string)
+  description = "Instance zone."
+  type        = string
 }
 
 variable "subnetwork" {
-  description = "List of instance subnetwork names."
-  type        = list(string)
+  description = "Instance subnetwork."
+  type        = string
 }
 
