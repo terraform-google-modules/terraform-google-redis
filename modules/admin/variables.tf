@@ -14,10 +14,23 @@
  * limitations under the License.
  */
 
-variable "project_id" { default = "" }
-variable "service_account" { default = "redis-server" }
-variable "bucket_name" { default = "" }
-variable "network_project" { default = "" }
-variable "network" { default = "default" }
-variable "subnetwork" { default = "default" }
-variable "client_ip_range" { default = "10.0.0.0/8" }
+variable "project_id" {
+  description = "The ID of the project where resources will be created"
+  type        = string
+}
+variable "service_account" {
+  description = "Name of service account being created for redis"
+  default     = "redis-server"
+}
+variable "bucket_name" {
+  description = "Name of GCS bucket being created to hold config files"
+  type        = string
+}
+variable "network" {
+  description = "Name of VPC Network where firewall rules will be created"
+  default     = "default"
+}
+variable "client_ip_range" {
+  description = "CIDR Range for firewall ingress rule to allow redis clients"
+  default     = "10.0.0.0/8"
+}

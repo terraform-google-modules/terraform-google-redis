@@ -83,6 +83,24 @@ resource "google_compute_route" "nat" {
   priority          = 100
 }
 
+# Needed for CI to wait for Cloud Storage API to become ready
+resource "null_resource" "api" {
+  provisioner "local-exec" {
+    command = <<EOF
+for i in {1..6}; do
+  if gcloud services list --project="${var.project_id}" | grep -q "storage-api.googleapis.com"; then
+    exit 0
+  fi
+  echo "Waiting for storage-api.googleapis.com to be enabled"
+  sleep 10
+done
+
+echo "storage-api.googleapis.com was not enabled after 60s"
+exit 1
+EOF
+  }
+}
+
 module "redis" {
   source = "../../../examples/redis_cluster"
 

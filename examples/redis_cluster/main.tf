@@ -24,7 +24,6 @@ module "admin" {
   project_id      = var.project_id
   bucket_name     = var.bucket_name
   service_account = var.service_account
-  network_project = var.network_project
   network         = var.network
   client_ip_range = var.client_ip_range
 }

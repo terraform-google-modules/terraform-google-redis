@@ -75,7 +75,6 @@ resource "google_storage_bucket" "config" {
   project       = var.project_id
   name          = var.bucket_name
   storage_class = "MULTI_REGIONAL"
-  depends_on    = [null_resource.api]
 }
 
 resource "google_storage_bucket_iam_binding" "config" {
@@ -84,20 +83,4 @@ resource "google_storage_bucket_iam_binding" "config" {
   members = ["serviceAccount:${google_service_account.redis.email}"]
 }
 
-# Needed for CI to wait for Cloud Storage API to become ready
-resource "null_resource" "api" {
-  provisioner "local-exec" {
-    command = <<EOF
-for i in {1..6}; do
-  if gcloud services list --project="${var.project_id}" | grep -q "storage-api.googleapis.com"; then
-    exit 0
-  fi
-  echo "Waiting for storage-api.googleapis.com to be enabled"
-  sleep 10
-done
 
-echo "storage-api.googleapis.com was not enabled after 60s"
-exit 1
-EOF
-  }
-}

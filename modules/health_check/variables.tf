@@ -14,5 +14,11 @@
  * limitations under the License.
  */
 
-variable "project_id" { default = "" }
-variable "health_check_name" { default = "" }
+variable "project_id" {
+  description = "The ID of the project where health check will be created"
+  type        = string
+}
+variable "health_check_name" {
+  description = "Name of the health check being created"
+  type        = string
+}
