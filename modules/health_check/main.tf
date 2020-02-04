@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,15 @@
  * limitations under the License.
  */
 
-terraform {
-  required_version = ">= 0.12"
+resource "google_compute_health_check" "redis" {
+  project             = var.project_id
+  name                = var.health_check_name
+  timeout_sec         = 15
+  check_interval_sec  = 30
+  healthy_threshold   = 1
+  unhealthy_threshold = 6
+
+  tcp_health_check {
+    port = "6379"
+  }
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,13 @@
  * limitations under the License.
  */
 
-output "bucket_name" {
-  value = google_storage_bucket.main.name
+output "health_check_uri" {
+  description = "The URI of the health check."
+  value       = module.health_check.health_check_uri
 }
+
+output "bucket_name" {
+  description = "The name of the bucket."
+  value       = module.admin.bucket_name
+}
+

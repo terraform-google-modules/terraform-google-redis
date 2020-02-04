@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
-terraform {
-  required_version = ">= 0.12"
+variable "project_id" {
+  description = "The ID of the project where health check will be created"
+  type        = string
+}
+variable "health_check_name" {
+  description = "Name of the health check being created"
+  type        = string
 }

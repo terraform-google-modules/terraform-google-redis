@@ -1,0 +1,22 @@
+project_id         = "myproject"
+network_project    = "myproject"
+network            = "default"
+subnetwork         = "default"
+service_account    = "redis-cluster"
+bucket_name        = "mybucket"
+health_check_name  = "redis"
+instance_type      = "n1-standard-2"
+disk_size_gb       = 64
+cluster_name       = "cluster1"
+pass               = "changeit"
+client_ip_range    = "10.0.0.0/8"
+region = [
+  "us-east1",
+  "us-east1",
+  "us-east1",
+]
+zone = [
+  "us-east1-b",
+  "us-east1-b",
+  "us-east1-b",
+]
