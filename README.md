@@ -1,5 +1,9 @@
 # Terraform Redis Module for GCP
 
+## ⚠ Deprecated
+
+This module has been deprecated. Please switch to the managed service using [terraform-google-memorystore](https://github.com/terraform-google-modules/terraform-google-memorystore). For more information, please refer to the [documentation](https://cloud.google.com/memorystore/docs/redis/redis-overview).
+
 This repository contains Terraform Modules used to launch a Redis Sentinel HA Cluster on Google Cloud.
 
 Redis Sentinel manages a High-Availability Redis cluster with Google Cloud Managed Instance Group providing auto-healing and monitoring built in. Redis is very useful for caching application data in memory and can also be used as a message broker.
