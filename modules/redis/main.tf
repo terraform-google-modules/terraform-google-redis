@@ -79,7 +79,7 @@ EOF
   network_interface {
     subnetwork_project = var.project_id
     subnetwork         = var.subnetwork
-    network_ip         = "${count.index == 0 ? google_compute_address.redis.address : null}"
+    network_ip         = count.index == 0 ? google_compute_address.redis.address : null
   }
   service_account {
     email  = "${var.service_account}@${var.project_id}.iam.gserviceaccount.com"
